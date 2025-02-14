@@ -27,7 +27,7 @@ export default function CustomNavbar() {
                         <Nav.Link as={Link} to={"/search"}>
                             <FontAwesomeIcon className="text-dark" icon={faMagnifyingGlass} />
                         </Nav.Link>
-                        <Nav.Link as={Link} to={"/profile"}>
+                        <Nav.Link as={Link} to={"/auth/signup"}>
                             <FontAwesomeIcon className="text-dark" icon={faUser} />
                         </Nav.Link>
                         <Nav.Link as={Link} to={"/wishlist"}>
