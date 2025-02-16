@@ -1,6 +1,6 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import { createBrowserRouter, RouterProvider, Outlet } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 import App from './App.jsx';
@@ -13,6 +13,8 @@ import Shop from './assets/pages/user/shop/Shop.jsx';
 import Auth from './layouts/Auth.jsx';
 import Logup from './assets/pages/user/register/Logup.jsx';
 import Login from './assets/pages/user/register/Login.jsx';
+import CateProd from './assets/pages/user/product/CateProd.jsx';
+import Details from './assets/pages/user/product/Details.jsx';
 
 const router = createBrowserRouter([
   {
@@ -23,6 +25,8 @@ const router = createBrowserRouter([
       { path: 'cart', element: <Cart /> },
       { path: 'product', element: <Product /> },
       { path: 'shop', element: <Shop /> },
+      { path: 'cateprod/:id', element: <CateProd /> },
+      { path: 'details/:id', element: <Details /> },
     ],
   },
   {
