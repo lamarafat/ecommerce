@@ -2,7 +2,7 @@ import axios from "axios";
 import { createContext, useEffect, useState } from "react";
 
 export const CartContext = createContext();
-    const CartContextProvider = ({Children}) => {
+    const CartContextProvider = ({children}) => {
     const [cartCount, setCartCount] = useState(0);
     useEffect(() =>{
         getCart();
@@ -19,7 +19,7 @@ export const CartContext = createContext();
     }
 
     return  <CartContext.Provider value={{cartCount, setCartCount}}>
-            {Children}
+            {children}
         </CartContext.Provider>
     
     }

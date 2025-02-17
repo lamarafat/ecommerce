@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React from 'react'
+import { Button } from 'bootstrap';
+import React, { useEffect, useState } from 'react'
 import { Nav } from 'react-bootstrap';
 
 export default function Cart() {
@@ -110,7 +111,7 @@ export default function Cart() {
       </div>
       <hr className="text-muted" />
       <div className="container p-2" id="cart-items-container">
-        {cartItems.map(item => (
+        {cart?.map(item => (
           <div key={item._id} className="container p-2 col-md-8 d-flex justify-content-between flex-wrap">
             <img src={item.details.mainImage.secure_url} alt={item.details.name} />
             <p className="fs-6">{item.details.name}</p>
