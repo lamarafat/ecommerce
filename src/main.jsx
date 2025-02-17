@@ -15,6 +15,10 @@ import Logup from './assets/pages/user/register/Logup.jsx';
 import Login from './assets/pages/user/register/Login.jsx';
 import CateProd from './assets/pages/user/product/CateProd.jsx';
 import Details from './assets/pages/user/product/Details.jsx';
+import { ToastContainer } from 'react-bootstrap';
+import ProtectedRoute from './component/ProtectedRoute.jsx';
+import CartContextProvider from './component/context/CartContext.jsx';
+import Categories from './component/user/Categories.jsx';
 
 const router = createBrowserRouter([
   {
@@ -22,11 +26,17 @@ const router = createBrowserRouter([
     element: <AuthLayout />, 
     children: [
       { path: 'home', element: <Home /> }, 
-      { path: 'cart', element: <Cart /> },
+      { path: 'cart', element:
+        <ProtectedRoute>
+         <Cart /> 
+         </ProtectedRoute>
+        },
       { path: 'product', element: <Product /> },
       { path: 'shop', element: <Shop /> },
       { path: 'cateprod/:id', element: <CateProd /> },
       { path: 'details/:id', element: <Details /> },
+      { path: 'categories', element: <Categories /> },
+
     ],
   },
   {
@@ -41,11 +51,15 @@ const router = createBrowserRouter([
     path: '/dashboard',
     element: <DashLayout />, 
   },
+
 ]);
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  
+    <CartContextProvider>
+  <ToastContainer/>
     <RouterProvider router={router} />
-  </StrictMode>
+    </CartContextProvider>
+  
   
 );

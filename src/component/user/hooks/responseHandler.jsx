@@ -1,4 +1,4 @@
-import { ToastContainer } from 'react-bootstrap';
+
 import { toast } from 'react-toastify';
 
 export const handleRegistrationResponse = (response, navigate, page) => {
@@ -16,7 +16,6 @@ export const handleRegistrationResponse = (response, navigate, page) => {
     });
     navigate(page);
   }
-  <ToastContainer/>
 };
 
 export const handleLoginResponse = (response, navigate, page) => {

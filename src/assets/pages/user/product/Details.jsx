@@ -1,21 +1,73 @@
-import React from 'react'
-import { Nav } from 'react-bootstrap'
-import { Link, useParams } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { Button } from 'react-bootstrap'
+import { useNavigate, useParams } from 'react-router-dom'
 import useGet from '../../../../component/user/hooks/useGet';
+import { CartContext } from '../../../../component/context/CartContext';
 
 export default function Details() {
-    const { id } = useParams();
-    const { data, error, loading } = useGet(`${import.meta.env.VITE_BURL}/products/${id}`);
-
-    if (loading) {
-        return <h1>Loading...</h1>;
-    }
-
-    if (error) {
-        return <h1>Error</h1>;
-    }
-
-    const product = data.product;
+  
+        const { id } = useParams();
+        const navigate = useNavigate();
+        const {cartCount, setCartCount} = useContext(CartContext);
+        const { data, error, loading } = useGet(`${import.meta.env.VITE_BURL}/products/${id}`);
+    
+        if (loading) {
+            return <h1>Loading...</h1>;
+        }
+    
+        if (error) {
+            return <h1>Error</h1>;
+        }
+    
+        const addProductToCart = async () => {
+            try {
+                const token = localStorage.getItem("useToken");
+                const response = await axios.post(
+                    `${import.meta.env.VITE_BURL}/cart`,
+                    {
+                        productId: id,
+                    },
+                    {
+                        headers: {
+                            'Authorization': `Tariq__${token}`,
+                        },
+                    }
+                );
+    
+                if (response.status === 201) {
+                    toast.success('Product added to your cart successfully', {
+                        position: "bottom-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: false,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                        transition: toast.Bounce,
+                    });
+                    setCartCount(cartCount + 1);
+                    navigate('/cart');
+                }
+            } catch (error) {
+                console.error(error);
+                toast.error('Failed to add product to cart', {
+                    position: "bottom-center",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: false,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: toast.Bounce,
+                });
+            }
+        };
+    
+        const product = data.product;
+    
+       
 
     return (
 
@@ -69,7 +121,7 @@ export default function Details() {
                         <div className="rounded-circle bg-info-subtle mb-2 p-2" style={{ height: 24, width: 24 }}>
                         </div>
                     </div>
-                    <Nav.Link as={Link} to={"/cart"} id="addToCartButton" className="btn btn-dark text-white w-50 bg-dark p-2">Add to Cart</Nav.Link>
+                    <Button onClick={()=>addProductToCart(product._id)}  id="addToCartButton" className="btn btn-dark text-white w-50 bg-dark p-2">Add to Cart</Button>
                 </div>
                 <hr />
             </div>
